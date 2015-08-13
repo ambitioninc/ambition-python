@@ -2,8 +2,8 @@
 import multiprocessing
 assert multiprocessing
 import re
+import sys
 from setuptools import setup, find_packages
-
 
 def get_version():
     """
@@ -17,16 +17,29 @@ def get_version():
         raise RuntimeError('Unable to find version string in {0}.'.format(VERSION_FILE))
 
 
+
+# To install the library, open a Terminal shell, then run this
+# file by typing:
+#
+# python setup.py install
+#
+# You need to have the setuptools module installed.
+# Try reading the setuptools documentation:
+# http://pypi.python.org/pypi/setuptools
+
+REQUIRES = ["urllib3 >= 1.10", "six >= 1.9", "certifi"]
+
 setup(
-    name='ambition',
+    name="ambition",
     version=get_version(),
     description='',
     long_description=open('README.rst').read(),
     url='https://github.com/ambitioninc/ambition',
     author='Ryan Bales',
     author_email='opensource@ambition.com',
-    keywords='',
+    install_requires=REQUIRES,
     packages=find_packages(),
+    keywords='',
     classifiers=[
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.3',
@@ -36,7 +49,6 @@ setup(
         'Operating System :: OS Independent',
     ],
     license='MIT',
-    install_requires=[],
     include_package_data=True,
     test_suite='nose.collector',
     tests_require=[
@@ -47,3 +59,13 @@ setup(
     ],
     zip_safe=False,
 )
+
+
+
+
+
+
+
+
+
+
