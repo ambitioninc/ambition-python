@@ -19,13 +19,13 @@ class ApiConfiguration(object):
         self._api_key_prefix = api_key_prefix
 
     @property
-    def api_key():
+    def api_key(self):
         if self._api_key and self._api_key_prefix:
             return self._api_key_prefix + ' ' + self._api_key
         return self._api_key
 
 
-    def auth_settings():
+    def auth_settings(self):
         return {
             'default': {
                 'type': 'api_key',

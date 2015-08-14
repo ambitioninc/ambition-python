@@ -74,12 +74,9 @@ class AccountApi(object):
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type([])
 
-        # Authentication setting
-        auth_settings = []
-
         response = self.api_client.call_api(resource_path, method, path_params, query_params, header_params,
                                             body=body_params, post_params=form_params, files=files,
-                                            response='AccountApiSerializer', auth_settings=auth_settings)
+                                            response='AccountApiSerializer')
         
         return response
         
@@ -175,12 +172,9 @@ class AccountApi(object):
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type([])
 
-        # Authentication setting
-        auth_settings = []
-
         response = self.api_client.call_api(resource_path, method, path_params, query_params, header_params,
                                             body=body_params, post_params=form_params, files=files,
-                                            response='AccountApiSerializer', auth_settings=auth_settings)
+                                            response='AccountApiSerializer')
         
         return response
         
@@ -232,12 +226,9 @@ class AccountApi(object):
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type([])
 
-        # Authentication setting
-        auth_settings = []
-
         response = self.api_client.call_api(resource_path, method, path_params, query_params, header_params,
                                             body=body_params, post_params=form_params, files=files,
-                                            response='AccountApiSerializer', auth_settings=auth_settings)
+                                            response='AccountApiSerializer')
         
         return response
         
@@ -341,12 +332,9 @@ class AccountApi(object):
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type([])
 
-        # Authentication setting
-        auth_settings = []
-
         response = self.api_client.call_api(resource_path, method, path_params, query_params, header_params,
                                             body=body_params, post_params=form_params, files=files,
-                                            response='AccountApiSerializer', auth_settings=auth_settings)
+                                            response='AccountApiSerializer')
         
         return response
         
@@ -398,12 +386,9 @@ class AccountApi(object):
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type([])
 
-        # Authentication setting
-        auth_settings = []
-
         response = self.api_client.call_api(resource_path, method, path_params, query_params, header_params,
                                             body=body_params, post_params=form_params, files=files,
-                                            response='AccountApiSerializer', auth_settings=auth_settings)
+                                            response='AccountApiSerializer')
         
         return response
         
@@ -487,12 +472,9 @@ class AccountApi(object):
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type([])
 
-        # Authentication setting
-        auth_settings = []
-
         response = self.api_client.call_api(resource_path, method, path_params, query_params, header_params,
                                             body=body_params, post_params=form_params, files=files,
-                                            response='AccountApiSerializer', auth_settings=auth_settings)
+                                            response='AccountApiSerializer')
         
         return response
         

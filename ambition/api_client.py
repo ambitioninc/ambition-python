@@ -42,7 +42,7 @@ class ApiClient(object):
         self.default_headers = {}
         if header_name is not None:
             self.default_headers[header_name] = header_value
-        self.host = configuration.get('host')
+        self.host = configuration.host
         self.cookie = None
         # Set default User-Agent.
         self.user_agent = 'Python-Swagger'
@@ -102,6 +102,9 @@ class ApiClient(object):
 
         # deserialize response data
         if response:
+            # return a tuple of models if the response is a list of objects
+            if type(response_data) in [list, tuple]:
+                return (self.deserialize(model, response) for model in response_data)
             return self.deserialize(response_data, response)
         else:
             return None

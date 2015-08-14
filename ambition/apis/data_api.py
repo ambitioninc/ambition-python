@@ -74,12 +74,9 @@ class DataApi(object):
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type([])
 
-        # Authentication setting
-        auth_settings = []
-
         response = self.api_client.call_api(resource_path, method, path_params, query_params, header_params,
                                             body=body_params, post_params=form_params, files=files,
-                                            response='DepotSerializer', auth_settings=auth_settings)
+                                            response='DepotSerializer')
         
         return response
         
@@ -131,12 +128,9 @@ class DataApi(object):
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type([])
 
-        # Authentication setting
-        auth_settings = []
-
         response = self.api_client.call_api(resource_path, method, path_params, query_params, header_params,
                                             body=body_params, post_params=form_params, files=files,
-                                            response='PublicApiDataListResponse', auth_settings=auth_settings)
+                                            response='PublicApiDataListResponse')
         
         return response
         
@@ -196,12 +190,9 @@ class DataApi(object):
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(['application/json', 'text/csv', 'application/vnd.ms-excel'])
 
-        # Authentication setting
-        auth_settings = []
-
         response = self.api_client.call_api(resource_path, method, path_params, query_params, header_params,
                                             body=body_params, post_params=form_params, files=files,
-                                            response='PublicApiDataCreateResponse', auth_settings=auth_settings)
+                                            response='PublicApiDataCreateResponse')
         
         return response
         
