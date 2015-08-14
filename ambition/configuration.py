@@ -2,36 +2,36 @@ from __future__ import absolute_import
 import base64
 import urllib3
 
-def get_api_key_with_prefix(key):
-    global api_key
-    global api_key_prefix
+class ApiConfiguration(object):
+    """
+    API Configuration Class
+    """
+    # Base url
+    host = None
 
-    if api_key.get(key) and api_key_prefix.get(key):
-      return api_key_prefix[key] + ' ' + api_key[key]
-    elif api_key.get(key):
-      return api_key[key]
+    # Authentication settings
+    _api_key = None
+    _api_key_prefix = None
 
-def get_basic_auth_token():
-    global username
-    global password
+    def __init__(self, host, api_key, api_key_prefix='Token'):
+        self.host = host
+        self._api_key = api_key
+        self._api_key_prefix = api_key_prefix
 
-    return urllib3.util.make_headers(basic_auth=username + ':' + password).get('authorization')
+    @property
+    def api_key():
+        if self._api_key and self._api_key_prefix:
+            return self._api_key_prefix + ' ' + self._api_key
+        return self._api_key
 
-def auth_settings():
-    return { 
-           }
 
-# Default Base url
-host = "http://localhost:8080/"
-
-# Default api client
-api_client = None
-             
-# Authentication settings
-
-api_key = {}
-api_key_prefix = {}
-username = ''
-password = ''
-
+    def auth_settings():
+        return {
+            'default': {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'Authorization',
+                'value': self.api_key
+            },
+        }
 

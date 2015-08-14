@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-ApivaccountApi.py
+AccountApi.py
 Copyright 2015 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,18 +27,11 @@ import os
 # python 2 and python 3 compatibility library
 from six import iteritems
 
-from .. import configuration
-from ..api_client import ApiClient
-
-class ApivaccountApi(object):
+class AccountApi(object):
 
     def __init__(self, api_client=None):
         if api_client:
             self.api_client = api_client
-        else:
-            if not configuration.api_client:
-                configuration.api_client = ApiClient('http://localhost:8080/')
-            self.api_client = configuration.api_client
     
     
     def public_api_account_list(self, **kwargs):

@@ -11,8 +11,8 @@ from .models.depot_serializer import DepotSerializer
 from .models.write_depot_serializer import WriteDepotSerializer
 
 # import apis into sdk package
-from .apis.apivdata_api import ApivdataApi
-from .apis.apivaccount_api import ApivaccountApi
+from .apis.data_api import DataApi
+from .apis.account_api import AccountApi
 
 # import ApiClient
 from .api_client import ApiClient
