@@ -7,16 +7,13 @@ the methods and models for each application are generated from the Swagger
 templates."""
 
 from __future__ import absolute_import
-from . import models
 from .rest import RESTClient
+from . import models
 
 import os
 import re
-import urllib
-import json
 import datetime
 import mimetypes
-import random
 
 # python 2 and python 3 compatibility library
 from six import iteritems
@@ -27,6 +24,7 @@ try:
 except ImportError:
     # for python2
     from urllib import quote
+
 
 class ApiClient(object):
     """
@@ -58,8 +56,11 @@ class ApiClient(object):
     def set_default_header(self, header_name, header_value):
         self.default_headers[header_name] = header_value
 
-    def call_api(self, resource_path, method, path_params=None, query_params=None, header_params=None,
-                             body=None, post_params=None, files=None, response=None, auth_settings=['default']):
+    def call_api(
+        self, resource_path, method, path_params=None, query_params=None,
+        header_params=None, body=None, post_params=None, files=None,
+        response=None, auth_settings=['default']
+    ):
 
         # headers parameters
         header_params = header_params or {}
@@ -97,14 +98,18 @@ class ApiClient(object):
         url = self.host + resource_path
 
         # perform request and return response
-        response_data = self.request(method, url, query_params=query_params, headers=header_params,
-                                                                 post_params=post_params, body=body)
+        response_data = self.request(
+            method, url, query_params=query_params, headers=header_params,
+            post_params=post_params, body=body)
 
         # deserialize response data
         if response:
             # return a tuple of models if the response is a list of objects
             if type(response_data) in [list, tuple]:
-                return (self.deserialize(model, response) for model in response_data)
+                return (
+                    self.deserialize(model, response)
+                    for model in response_data
+                )
             return self.deserialize(response_data, response)
         else:
             return None
@@ -148,11 +153,16 @@ class ApiClient(object):
                 # Convert model obj to dict except attributes `swagger_types`, `attribute_map`
                 # and attributes which value is not None.
                 # Convert attribute name to json key in model definition for request.
-                obj_dict = {obj.attribute_map[key]: val
-                                        for key, val in iteritems(obj.__dict__)
-                                        if key != 'swagger_types' and key != 'attribute_map' and val is not None}
-            return {key: self.sanitize_for_serialization(val)
-                            for key, val in iteritems(obj_dict)}
+                obj_dict = {
+                    obj.attribute_map[key]: val
+                    for key, val in iteritems(obj.__dict__)
+                    if key not in ['swagger_types', 'attribute_map']
+                    and val is not None
+                }
+            return {
+                key: self.sanitize_for_serialization(val)
+                for key, val in iteritems(obj_dict)
+            }
 
     def deserialize(self, obj, obj_class):
         """
@@ -165,51 +175,34 @@ class ApiClient(object):
         """
         # Have to accept obj_class as string or actual type. Type could be a
         # native Python type, or one of the model classes.
+
         if type(obj_class) == str:
             if 'list[' in obj_class:
                 match = re.match('list\[(.*)\]', obj_class)
                 sub_class = match.group(1)
                 return [self.deserialize(sub_obj, sub_class) for sub_obj in obj]
+            if obj_class in ['int', 'float', 'dict', 'list', 'str', 'bool']:
+                try:
+                    return eval(obj_class)(obj)
+                except UnicodeEncodeError:
+                    return unicode(obj)
+                except TypeError:
+                    return obj
+            if obj_class == 'datetime':
+                return self.__parse_string_to_datetime(obj)
 
-            if obj_class in ['int', 'float', 'dict', 'list', 'str', 'bool', 'datetime']:
-                obj_class = eval(obj_class)
-            else:  # not a native type, must be model class
-                obj_class = eval('models.' + obj_class)
+        model_class = getattr(models, obj_class)
+        return self.deserialize_model(model_class, obj)
 
-        if obj_class in [int, float, dict, list, str, bool]:
-            return obj_class(obj)
-        elif obj_class == datetime:
-            return self.__parse_string_to_datetime(obj)
-
-        instance = obj_class()
-
+    def deserialize_model(self, model_class, obj):
+        instance = model_class()
+        if obj is None or type(obj) not in [list, dict]:
+            return instance
         for attr, attr_type in iteritems(instance.swagger_types):
-                if obj is not None and instance.attribute_map[attr] in obj and type(obj) in [list, dict]:
-                    value = obj[instance.attribute_map[attr]]
-                    if attr_type in ['str', 'int', 'float', 'bool']:
-                        attr_type = eval(attr_type)
-                        try:
-                            value = attr_type(value)
-                        except UnicodeEncodeError:
-                            value = unicode(value)
-                        except TypeError:
-                            value = value
-                        setattr(instance, attr, value)
-                    elif attr_type == 'datetime':
-                        setattr(instance, attr, self.__parse_string_to_datetime(value))
-                    elif 'list[' in attr_type:
-                        match = re.match('list\[(.*)\]', attr_type)
-                        sub_class = match.group(1)
-                        sub_values = []
-                        if not value:
-                            setattr(instance, attr, None)
-                        else:
-                            for sub_value in value:
-                                sub_values.append(self.deserialize(sub_value, sub_class))
-                            setattr(instance, attr, sub_values)
-                    else:
-                        setattr(instance, attr, self.deserialize(value, attr_type))
-
+            if instance.attribute_map[attr] not in obj:
+                continue
+            value = obj[instance.attribute_map[attr]]
+            setattr(instance, attr, self.deserialize(value, attr_type))
         return instance
 
     def __parse_string_to_datetime(self, string):
@@ -304,4 +297,3 @@ class ApiClient(object):
                     querys[auth_setting['key']] = auth_setting['value']
                 else:
                     raise ValueError('Authentication token must be in `query` or `header`')
-

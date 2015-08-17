@@ -3,6 +3,7 @@ from abc import ABCMeta
 from ..configuration import ApiConfiguration
 from ..api_client import ApiClient
 
+
 class AbstractBaseApi(object):
     """
     Base Api class which provides a factory method

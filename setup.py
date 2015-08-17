@@ -2,8 +2,8 @@
 import multiprocessing
 assert multiprocessing
 import re
-import sys
 from setuptools import setup, find_packages
+
 
 def get_version():
     """
@@ -15,8 +15,6 @@ def get_version():
         return mo.group(1)
     else:
         raise RuntimeError('Unable to find version string in {0}.'.format(VERSION_FILE))
-
-
 
 # To install the library, open a Terminal shell, then run this
 # file by typing:
@@ -59,13 +57,3 @@ setup(
     ],
     zip_safe=False,
 )
-
-
-
-
-
-
-
-
-
-

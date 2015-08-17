@@ -11,9 +11,6 @@ import json
 import ssl
 import certifi
 
-# python 2 and python 3 compatibility library
-from six import iteritems
-
 try:
     import urllib3
 except ImportError:
@@ -46,6 +43,7 @@ class RESTResponse(io.IOBase):
         Returns a given response header.
         """
         return self.urllib3_response.getheader(name, default)
+
 
 class RESTClientObject(object):
 
@@ -180,7 +178,7 @@ class ApiException(Exception):
             data = self.body.decode('utf8')
         else:
             data = self.body
-            
+
         try:
             self.body = json.loads(data)
         except ValueError:
@@ -195,6 +193,7 @@ class ApiException(Exception):
             "HTTP response headers: {2}\n"\
             "HTTP response body: {3}\n".\
             format(self.status, self.reason, self.headers, self.body)
+
 
 class RESTClient(object):
     """

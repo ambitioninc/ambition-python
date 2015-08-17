@@ -1,6 +1,5 @@
 from __future__ import absolute_import
-import base64
-import urllib3
+
 
 class ApiConfiguration(object):
     """
@@ -24,7 +23,6 @@ class ApiConfiguration(object):
             return self._api_key_prefix + ' ' + self._api_key
         return self._api_key
 
-
     def auth_settings(self):
         return {
             'default': {
@@ -34,4 +32,3 @@ class ApiConfiguration(object):
                 'value': self.api_key
             },
         }
-
