@@ -27,7 +27,9 @@ import os
 # python 2 and python 3 compatibility library
 from six import iteritems
 
-class DataApi(object):
+from . import AbstractBaseApi
+
+class DataApi(AbstractBaseApi):
 
     def __init__(self, api_client=None):
         if api_client:
