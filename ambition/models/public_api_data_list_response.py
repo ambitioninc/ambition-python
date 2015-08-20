@@ -32,7 +32,7 @@ class PublicApiDataListResponse(object):
         :param dict attributeMap: The key is attribute name and the value is json key in definition.
         """
         self.swagger_types = {
-            'data_schema': 'Object',
+            'data_schema': 'dict',
             'display_name': 'str',
             'name': 'str',
         }
@@ -44,7 +44,7 @@ class PublicApiDataListResponse(object):
         }
 
         # The schema definition for the requested data type
-        self.data_schema = None  # Object
+        self.data_schema = None  # dict
 
         # Human readable name of the data type
         self.display_name = None  # str

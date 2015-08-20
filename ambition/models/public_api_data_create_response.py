@@ -32,7 +32,7 @@ class PublicApiDataCreateResponse(object):
         :param dict attributeMap: The key is attribute name and the value is json key in definition.
         """
         self.swagger_types = {
-            'errors': 'list[Object]',
+            'errors': 'list[dict]',
         }
 
         self.attribute_map = {
@@ -40,7 +40,7 @@ class PublicApiDataCreateResponse(object):
         }
 
         # A list of any errors that occurred while processing data
-        self.errors = None  # list[Object]
+        self.errors = None  # list[dict]
 
     def __repr__(self):
         properties = []
