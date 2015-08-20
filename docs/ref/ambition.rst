@@ -3,11 +3,27 @@
 Code documentation
 ==================
 
-ambition
+API's
 ------------------
 
-.. automodule:: ambition
-.. autoclass:: ambition.ambition
+.. automodule:: ambition.apis
+
+.. autoclass:: DataApi
     :members:
 
-    .. automethod:: __init__
+.. autoclass:: AccountApi
+    :members:
+
+Constituents
+------------------
+
+.. automodule:: ambition.configuration
+
+.. autoclass:: ApiConfiguration
+    :members:
+
+.. automodule:: ambition.api_client
+
+.. autoclass:: ApiClient
+    :members:
+
