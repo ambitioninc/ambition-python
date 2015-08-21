@@ -37,3 +37,21 @@ Listing usernames for all accounts in your organization.
         print data_type.name
 
 Listing data type identifier/name for all data types supported by your organization.
+
+.. code-block:: python
+
+    import io
+
+    from ambition.apis import DataApi
+
+    api_client_kwargs = {
+        'api_key': environ.get('AMBITION_API_KEY'),
+        'subdomain': environ.get('AMBITION_SUBDOMAIN'),
+    }
+    api = DataApi.create_client(**api_client_kwargs)
+    # get data file contents
+    csv_file = io.open('/path/to/some.csv')
+    body = csv_file.read()
+    # make api call
+    api.public_api_data_create(data_type, body, content_Type='text/csv')
+    
