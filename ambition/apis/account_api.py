@@ -33,7 +33,7 @@ class AccountApi(AbstractBaseApi):
         if api_client:
             self.api_client = api_client
 
-    def public_api_account_list(self, **kwargs):
+    def public_api_account_list(self, content_type=None, **kwargs):
         """
         Return a list of accounts
         The Account API  <br/>Return a list of accounts.
@@ -102,8 +102,9 @@ class AccountApi(AbstractBaseApi):
             del header_params['Accept']
 
         # HTTP header `Content-Type`
-        content_type = []
-        content_type = self.api_client.select_header_content_type(content_type)
+        content_types = []
+        if content_type is None or content_type not in content_types:
+            content_type = self.api_client.select_header_content_type(content_types)
         header_params['Content-Type'] = content_type
 
         response = self.api_client.call_api(
@@ -112,7 +113,7 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_create(self, username, email, first_name, last_name, time_zone, **kwargs):
+    def public_api_account_create(self, username, email, first_name, last_name, time_zone, content_type=None, **kwargs):
         """
         Create a new account
         The Account API  <br/>Create a new account
@@ -220,8 +221,9 @@ class AccountApi(AbstractBaseApi):
             del header_params['Accept']
 
         # HTTP header `Content-Type`
-        content_type = []
-        content_type = self.api_client.select_header_content_type(content_type)
+        content_types = []
+        if content_type is None or content_type not in content_types:
+            content_type = self.api_client.select_header_content_type(content_types)
         header_params['Content-Type'] = content_type
 
         response = self.api_client.call_api(
@@ -230,7 +232,7 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_retrieve(self, pk, **kwargs):
+    def public_api_account_retrieve(self, pk, content_type=None, **kwargs):
         """
         Return a single account
         The Account API  <br/>Return a single account.
@@ -305,8 +307,9 @@ class AccountApi(AbstractBaseApi):
             del header_params['Accept']
 
         # HTTP header `Content-Type`
-        content_type = []
-        content_type = self.api_client.select_header_content_type(content_type)
+        content_types = []
+        if content_type is None or content_type not in content_types:
+            content_type = self.api_client.select_header_content_type(content_types)
         header_params['Content-Type'] = content_type
 
         response = self.api_client.call_api(
@@ -315,7 +318,7 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_update(self, pk, username, first_name, last_name, email, password, **kwargs):
+    def public_api_account_update(self, pk, username, first_name, last_name, email, password, content_type=None, **kwargs):
         """
         The Account API
         The Account API
@@ -429,8 +432,9 @@ class AccountApi(AbstractBaseApi):
             del header_params['Accept']
 
         # HTTP header `Content-Type`
-        content_type = []
-        content_type = self.api_client.select_header_content_type(content_type)
+        content_types = []
+        if content_type is None or content_type not in content_types:
+            content_type = self.api_client.select_header_content_type(content_types)
         header_params['Content-Type'] = content_type
 
         response = self.api_client.call_api(
@@ -439,7 +443,7 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_destroy(self, pk, **kwargs):
+    def public_api_account_destroy(self, pk, content_type=None, **kwargs):
         """
         The Account API
         The Account API
@@ -514,8 +518,9 @@ class AccountApi(AbstractBaseApi):
             del header_params['Accept']
 
         # HTTP header `Content-Type`
-        content_type = []
-        content_type = self.api_client.select_header_content_type(content_type)
+        content_types = []
+        if content_type is None or content_type not in content_types:
+            content_type = self.api_client.select_header_content_type(content_types)
         header_params['Content-Type'] = content_type
 
         response = self.api_client.call_api(
@@ -524,7 +529,7 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_partial_update(self, pk, **kwargs):
+    def public_api_account_partial_update(self, pk, content_type=None, **kwargs):
         """
         The Account API
         The Account API
@@ -623,8 +628,9 @@ class AccountApi(AbstractBaseApi):
             del header_params['Accept']
 
         # HTTP header `Content-Type`
-        content_type = []
-        content_type = self.api_client.select_header_content_type(content_type)
+        content_types = []
+        if content_type is None or content_type not in content_types:
+            content_type = self.api_client.select_header_content_type(content_types)
         header_params['Content-Type'] = content_type
 
         response = self.api_client.call_api(

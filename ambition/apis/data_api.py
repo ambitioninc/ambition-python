@@ -33,7 +33,7 @@ class DataApi(AbstractBaseApi):
         if api_client:
             self.api_client = api_client
 
-    def public_api_data_type_list_list(self, **kwargs):
+    def public_api_data_type_list_list(self, content_type=None, **kwargs):
         """
         Returns a list of supported data types
         The Data Types API  <br/>Returns a list of supported data types
@@ -102,8 +102,9 @@ class DataApi(AbstractBaseApi):
             del header_params['Accept']
 
         # HTTP header `Content-Type`
-        content_type = []
-        content_type = self.api_client.select_header_content_type(content_type)
+        content_types = []
+        if content_type is None or content_type not in content_types:
+            content_type = self.api_client.select_header_content_type(content_types)
         header_params['Content-Type'] = content_type
 
         response = self.api_client.call_api(
@@ -112,7 +113,7 @@ class DataApi(AbstractBaseApi):
             response='DepotSerializer')
         return response
 
-    def public_api_data_list(self, data_type, **kwargs):
+    def public_api_data_list(self, data_type, content_type=None, **kwargs):
         """
         Returns a description of a data type and its schema
         The Data API  <br/>Returns a description of a data type and its schema
@@ -187,8 +188,9 @@ class DataApi(AbstractBaseApi):
             del header_params['Accept']
 
         # HTTP header `Content-Type`
-        content_type = []
-        content_type = self.api_client.select_header_content_type(content_type)
+        content_types = []
+        if content_type is None or content_type not in content_types:
+            content_type = self.api_client.select_header_content_type(content_types)
         header_params['Content-Type'] = content_type
 
         response = self.api_client.call_api(
@@ -197,7 +199,7 @@ class DataApi(AbstractBaseApi):
             response='PublicApiDataListResponse')
         return response
 
-    def public_api_data_create(self, data_type, body, **kwargs):
+    def public_api_data_create(self, data_type, body, content_type=None, **kwargs):
         """
         Uploads a list of data objects
         The Data API  <br/>Uploads a list of data objects
@@ -279,8 +281,9 @@ class DataApi(AbstractBaseApi):
             del header_params['Accept']
 
         # HTTP header `Content-Type`
-        content_type = ['application/json', 'text/csv', 'application/vnd.ms-excel']
-        content_type = self.api_client.select_header_content_type(content_type)
+        content_types = ['application/json', 'text/csv', 'application/vnd.ms-excel']
+        if content_type is None or content_type not in content_types:
+            content_type = self.api_client.select_header_content_type(content_types)
         header_params['Content-Type'] = content_type
 
         response = self.api_client.call_api(

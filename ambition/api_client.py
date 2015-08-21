@@ -132,7 +132,7 @@ class ApiClient(object):
         Sanitize an object for Request.
 
         If obj is None, return None.
-        If obj is str, int, float, bool, return directly.
+        If obj is str, int, float, bool, unicode, return directly.
         If obj is datetime.datetime, datetime.date convert to string in iso8601 format.
         If obj is list, santize each element in the list.
         If obj is dict, return the dict.
@@ -140,7 +140,7 @@ class ApiClient(object):
         """
         if isinstance(obj, type(None)):
             return None
-        elif isinstance(obj, (str, int, float, bool, tuple)):
+        elif isinstance(obj, (str, int, float, bool, tuple, unicode)):
             return obj
         elif isinstance(obj, list):
             return [self.sanitize_for_serialization(sub_obj) for sub_obj in obj]
