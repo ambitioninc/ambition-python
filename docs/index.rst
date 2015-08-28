@@ -53,5 +53,5 @@ Listing data type identifier/name for all data types supported by your organizat
     csv_file = io.open('/path/to/some.csv')
     body = csv_file.read()
     # make api call
-    api.public_api_data_create(data_type, body, content_Type='text/csv')
+    api.public_api_data_create(data_type, body, content_type='text/csv')
     
