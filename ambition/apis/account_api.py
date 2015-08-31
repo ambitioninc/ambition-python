@@ -33,13 +33,16 @@ class AccountApi(AbstractBaseApi):
         if api_client:
             self.api_client = api_client
 
-    def public_api_account_list(self, content_type=None, **kwargs):
+    def public_api_account_list(
+        self,
+        content_type=None,
+        **kwargs
+    ):
         """
         Return a list of accounts
         The Account API  <br/>Return a list of accounts.
         :return: AccountApiSerializer
         """
-
         all_params = [
         ]
 
@@ -113,7 +116,16 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_create(self, username, first_name, last_name, time_zone, email, content_type=None, **kwargs):
+    def public_api_account_create(
+        self,
+        username,
+        first_name,
+        last_name,
+        time_zone,
+        email,
+        content_type=None,
+        **kwargs
+    ):
         """
         Create a new account
         The Account API  <br/>Create a new account
@@ -127,22 +139,6 @@ class AccountApi(AbstractBaseApi):
         :param str password:
         :return: AccountApiSerializer
         """
-
-        # verify the required parameter 'username' is set
-        if username is None:
-            raise ValueError("Missing the required parameter `username` when calling `public_api_account_create`")
-        # verify the required parameter 'first_name' is set
-        if first_name is None:
-            raise ValueError("Missing the required parameter `first_name` when calling `public_api_account_create`")
-        # verify the required parameter 'last_name' is set
-        if last_name is None:
-            raise ValueError("Missing the required parameter `last_name` when calling `public_api_account_create`")
-        # verify the required parameter 'time_zone' is set
-        if time_zone is None:
-            raise ValueError("Missing the required parameter `time_zone` when calling `public_api_account_create`")
-        # verify the required parameter 'email' is set
-        if email is None:
-            raise ValueError("Missing the required parameter `email` when calling `public_api_account_create`")
         all_params = [
             'username',
             'superior',
@@ -232,17 +228,18 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_retrieve(self, pk, content_type=None, **kwargs):
+    def public_api_account_retrieve(
+        self,
+        pk,
+        content_type=None,
+        **kwargs
+    ):
         """
         Return a single account
         The Account API  <br/>Return a single account.
         :param str pk:(required)
         :return: AccountApiSerializer
         """
-
-        # verify the required parameter 'pk' is set
-        if pk is None:
-            raise ValueError("Missing the required parameter `pk` when calling `public_api_account_retrieve`")
         all_params = [
             'pk',
         ]
@@ -318,7 +315,17 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_update(self, pk, username, first_name, last_name, email, password, content_type=None, **kwargs):
+    def public_api_account_update(
+        self,
+        pk,
+        username,
+        first_name,
+        last_name,
+        email,
+        password,
+        content_type=None,
+        **kwargs
+    ):
         """
         The Account API
         The Account API
@@ -333,25 +340,6 @@ class AccountApi(AbstractBaseApi):
         :param str password:(required)
         :return: AccountApiSerializer
         """
-
-        # verify the required parameter 'pk' is set
-        if pk is None:
-            raise ValueError("Missing the required parameter `pk` when calling `public_api_account_update`")
-        # verify the required parameter 'username' is set
-        if username is None:
-            raise ValueError("Missing the required parameter `username` when calling `public_api_account_update`")
-        # verify the required parameter 'first_name' is set
-        if first_name is None:
-            raise ValueError("Missing the required parameter `first_name` when calling `public_api_account_update`")
-        # verify the required parameter 'last_name' is set
-        if last_name is None:
-            raise ValueError("Missing the required parameter `last_name` when calling `public_api_account_update`")
-        # verify the required parameter 'email' is set
-        if email is None:
-            raise ValueError("Missing the required parameter `email` when calling `public_api_account_update`")
-        # verify the required parameter 'password' is set
-        if password is None:
-            raise ValueError("Missing the required parameter `password` when calling `public_api_account_update`")
         all_params = [
             'pk',
             'username',
@@ -443,17 +431,18 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_destroy(self, pk, content_type=None, **kwargs):
+    def public_api_account_destroy(
+        self,
+        pk,
+        content_type=None,
+        **kwargs
+    ):
         """
         The Account API
         The Account API
         :param str pk:(required)
         :return: AccountApiSerializer
         """
-
-        # verify the required parameter 'pk' is set
-        if pk is None:
-            raise ValueError("Missing the required parameter `pk` when calling `public_api_account_destroy`")
         all_params = [
             'pk',
         ]
@@ -529,7 +518,12 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_partial_update(self, pk, content_type=None, **kwargs):
+    def public_api_account_partial_update(
+        self,
+        pk,
+        content_type=None,
+        **kwargs
+    ):
         """
         The Account API
         The Account API
@@ -544,10 +538,6 @@ class AccountApi(AbstractBaseApi):
         :param str password:
         :return: AccountApiSerializer
         """
-
-        # verify the required parameter 'pk' is set
-        if pk is None:
-            raise ValueError("Missing the required parameter `pk` when calling `public_api_account_partial_update`")
         all_params = [
             'pk',
             'username',

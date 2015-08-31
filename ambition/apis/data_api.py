@@ -33,13 +33,16 @@ class DataApi(AbstractBaseApi):
         if api_client:
             self.api_client = api_client
 
-    def public_api_data_type_list_list(self, content_type=None, **kwargs):
+    def public_api_data_type_list_list(
+        self,
+        content_type=None,
+        **kwargs
+    ):
         """
         Returns a list of supported data types
         The Data Types API  <br/>Returns a list of supported data types
         :return: DepotSerializer
         """
-
         all_params = [
         ]
 
@@ -113,17 +116,18 @@ class DataApi(AbstractBaseApi):
             response='DepotSerializer')
         return response
 
-    def public_api_data_list(self, data_type, content_type=None, **kwargs):
+    def public_api_data_list(
+        self,
+        data_type,
+        content_type=None,
+        **kwargs
+    ):
         """
         Returns a description of a data type and its schema
         The Data API  <br/>Returns a description of a data type and its schema
         :param str data_type: The id of the data type. Refer to the data types API for available types(required)
         :return: PublicApiDataListResponse
         """
-
-        # verify the required parameter 'data_type' is set
-        if data_type is None:
-            raise ValueError("Missing the required parameter `data_type` when calling `public_api_data_list`")
         all_params = [
             'data_type',
         ]
@@ -199,7 +203,13 @@ class DataApi(AbstractBaseApi):
             response='PublicApiDataListResponse')
         return response
 
-    def public_api_data_create(self, data_type, body, content_type=None, **kwargs):
+    def public_api_data_create(
+        self,
+        data_type,
+        body,
+        content_type=None,
+        **kwargs
+    ):
         """
         Uploads a list of data objects
         The Data API  <br/>Uploads a list of data objects
@@ -207,13 +217,6 @@ class DataApi(AbstractBaseApi):
         :param Serializer body: A list of data records.(required)
         :return: PublicApiDataCreateResponse
         """
-
-        # verify the required parameter 'data_type' is set
-        if data_type is None:
-            raise ValueError("Missing the required parameter `data_type` when calling `public_api_data_create`")
-        # verify the required parameter 'body' is set
-        if body is None:
-            raise ValueError("Missing the required parameter `body` when calling `public_api_data_create`")
         all_params = [
             'data_type',
             'body',
