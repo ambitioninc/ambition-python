@@ -38,12 +38,6 @@ class RESTResponse(io.IOBase):
         """
         return self.urllib3_response.getheaders()
 
-    def getheader(self, name, default=None):
-        """
-        Returns a given response header.
-        """
-        return self.urllib3_response.getheader(name, default)
-
 
 class RESTClientObject(object):
 
@@ -206,13 +200,6 @@ class RESTClient(object):
     """
 
     IMPL = RESTClientObject()
-
-    @classmethod
-    def request(cls, *n, **kw):
-        """
-        Perform a REST request and parse the response.
-        """
-        return cls.IMPL.request(*n, **kw)
 
     @classmethod
     def GET(cls, *n, **kw):

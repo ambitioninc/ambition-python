@@ -25,7 +25,7 @@ def get_version():
 # Try reading the setuptools documentation:
 # http://pypi.python.org/pypi/setuptools
 
-REQUIRES = ["urllib3 >= 1.10", "six >= 1.9", "certifi"]
+REQUIRES = ["urllib3 >= 1.10", "six >= 1.9", "certifi", "python-dateutil==2.4.2"]
 
 setup(
     name="ambition",

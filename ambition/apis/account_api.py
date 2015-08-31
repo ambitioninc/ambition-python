@@ -113,27 +113,24 @@ class AccountApi(AbstractBaseApi):
             response='AccountApiSerializer')
         return response
 
-    def public_api_account_create(self, username, email, first_name, last_name, time_zone, content_type=None, **kwargs):
+    def public_api_account_create(self, username, first_name, last_name, time_zone, email, content_type=None, **kwargs):
         """
         Create a new account
         The Account API  <br/>Create a new account
         :param str username:(required)
-        :param str email:(required)
+        :param int superior: The id for the account&#39;s superior
         :param str first_name:(required)
         :param str last_name:(required)
-        :param int superior: The id for the account&#39;s superior
-        :param str password:
         :param str time_zone:(required)
         :param bool is_manager:
+        :param str email:(required)
+        :param str password:
         :return: AccountApiSerializer
         """
 
         # verify the required parameter 'username' is set
         if username is None:
             raise ValueError("Missing the required parameter `username` when calling `public_api_account_create`")
-        # verify the required parameter 'email' is set
-        if email is None:
-            raise ValueError("Missing the required parameter `email` when calling `public_api_account_create`")
         # verify the required parameter 'first_name' is set
         if first_name is None:
             raise ValueError("Missing the required parameter `first_name` when calling `public_api_account_create`")
@@ -143,15 +140,18 @@ class AccountApi(AbstractBaseApi):
         # verify the required parameter 'time_zone' is set
         if time_zone is None:
             raise ValueError("Missing the required parameter `time_zone` when calling `public_api_account_create`")
+        # verify the required parameter 'email' is set
+        if email is None:
+            raise ValueError("Missing the required parameter `email` when calling `public_api_account_create`")
         all_params = [
             'username',
-            'email',
+            'superior',
             'first_name',
             'last_name',
-            'superior',
-            'password',
             'time_zone',
             'is_manager',
+            'email',
+            'password',
         ]
 
         params = locals()
@@ -193,13 +193,13 @@ class AccountApi(AbstractBaseApi):
         # form parameters
         allowed_params = [
             'username',
-            'email',
+            'superior',
             'first_name',
             'last_name',
-            'superior',
-            'password',
             'time_zone',
             'is_manager',
+            'email',
+            'password',
         ]
         form_param_items = [
             item

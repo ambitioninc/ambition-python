@@ -32,14 +32,10 @@ class ApiClient(object):
 
     :type configuration: ``ApiConfiguration``
     :param configuration: The ApiConfiguration for this client
-    :param header_name: a header to pass when making calls to the API
-    :param header_value: a header value to pass when making calls to the API
     """
-    def __init__(self, configuration, header_name=None, header_value=None):
+    def __init__(self, configuration):
         self.configuration = configuration
         self.default_headers = {}
-        if header_name is not None:
-            self.default_headers[header_name] = header_value
         self.host = configuration.host
         self.cookie = None
         # Set default User-Agent.
@@ -52,9 +48,6 @@ class ApiClient(object):
     @user_agent.setter
     def user_agent(self, value):
         self.default_headers['User-Agent'] = value
-
-    def set_default_header(self, header_name, header_value):
-        self.default_headers[header_name] = header_value
 
     def call_api(
         self, resource_path, method, path_params=None, query_params=None,
@@ -211,11 +204,8 @@ class ApiClient(object):
 
         The string should be in iso8601 datetime format.
         """
-        try:
-                from dateutil.parser import parse
-                return parse(string)
-        except ImportError:
-                return string
+        from dateutil.parser import parse
+        return parse(string)
 
     def request(self, method, url, query_params=None, headers=None, post_params=None, body=None):
         """
