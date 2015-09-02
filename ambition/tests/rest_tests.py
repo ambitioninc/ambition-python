@@ -1,7 +1,7 @@
 import json
 from functools import partial
 import unittest
-from mock import patch, MagicMock, PropertyMock
+from mock import patch, MagicMock
 
 from ambition.rest import ApiException
 
@@ -171,7 +171,7 @@ class RestClientObjectTest(unittest.TestCase):
         from ..rest import RESTClientObject
         client = RESTClientObject()
         # change content type
-        headers = { 'Content-Type': 'application/octet-stream' }
+        headers = {'Content-Type': 'application/octet-stream'}
         request = partial(
             client.request, 'POST', 'http://example.com/', headers=headers)
         self.assertRaises(ApiException, request)
