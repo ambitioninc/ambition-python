@@ -8,6 +8,7 @@
 # Coverage files
 .coverage
 htmlcov/
+cover/
 
 # Setuptools distribution folder.
 /dist/

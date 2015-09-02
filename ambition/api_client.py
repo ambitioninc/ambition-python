@@ -60,8 +60,7 @@ class ApiClient(object):
         header_params.update(self.default_headers)
         if self.cookie:
             header_params['Cookie'] = self.cookie
-        if header_params:
-            header_params = self.sanitize_for_serialization(header_params)
+        header_params = self.sanitize_for_serialization(header_params)
 
         # path parameters
         if path_params:
@@ -169,20 +168,19 @@ class ApiClient(object):
         # Have to accept obj_class as string or actual type. Type could be a
         # native Python type, or one of the model classes.
 
-        if type(obj_class) == str:
-            if 'list[' in obj_class:
-                match = re.match('list\[(.*)\]', obj_class)
-                sub_class = match.group(1)
-                return [self.deserialize(sub_obj, sub_class) for sub_obj in obj]
-            if obj_class in ['int', 'float', 'dict', 'list', 'str', 'bool']:
-                try:
-                    return eval(obj_class)(obj)
-                except UnicodeEncodeError:
-                    return unicode(obj)
-                except TypeError:
-                    return obj
-            if obj_class == 'datetime':
-                return self.__parse_string_to_datetime(obj)
+        if 'list[' in obj_class:
+            match = re.match('list\[(.*)\]', obj_class)
+            sub_class = match.group(1)
+            return [self.deserialize(sub_obj, sub_class) for sub_obj in obj]
+        if obj_class in ['int', 'float', 'dict', 'list', 'str', 'bool']:
+            try:
+                return eval(obj_class)(obj)
+            except UnicodeEncodeError:
+                return unicode(obj)
+            except TypeError:
+                return obj
+        if obj_class == 'datetime':
+            return self.__parse_string_to_datetime(obj)
 
         model_class = getattr(models, obj_class)
         return self.deserialize_model(model_class, obj)
@@ -234,12 +232,11 @@ class ApiClient(object):
 
         if files:
             for k, v in iteritems(files):
-                if v:
-                    with open(v, 'rb') as f:
-                        filename = os.path.basename(f.name)
-                        filedata = f.read()
-                        mimetype = mimetypes.guess_type(filename)[0] or 'application/octet-stream'
-                        params[k] = tuple([filename, filedata, mimetype])
+                with open(v, 'rb') as f:
+                    filename = os.path.basename(f.name)
+                    filedata = f.read()
+                    mimetype = mimetypes.guess_type(filename)[0] or 'application/octet-stream'
+                    params[k] = tuple([filename, filedata, mimetype])
 
         return params
 
@@ -280,10 +277,4 @@ class ApiClient(object):
 
         for auth in auth_settings:
             auth_setting = self.configuration.auth_settings().get(auth)
-            if auth_setting:
-                if auth_setting['in'] == 'header':
-                    headers[auth_setting['key']] = auth_setting['value']
-                elif auth_setting['in'] == 'query':
-                    querys[auth_setting['key']] = auth_setting['value']
-                else:
-                    raise ValueError('Authentication token must be in `query` or `header`')
+            headers[auth_setting['key']] = auth_setting['value']

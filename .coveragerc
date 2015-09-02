@@ -15,4 +15,4 @@ exclude_lines =
     except ImportError
     raise ImportError
     raise ValueError
-fail_under = 98
+fail_under = 100

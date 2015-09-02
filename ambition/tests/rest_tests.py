@@ -1,5 +1,9 @@
+import json
+from functools import partial
 import unittest
-from mock import patch, MagicMock
+from mock import patch, MagicMock, PropertyMock
+
+from ambition.rest import ApiException
 
 
 class RestClientObjectTest(unittest.TestCase):
@@ -117,3 +121,57 @@ class RestClientObjectTest(unittest.TestCase):
             'POST', 'http://example.com/', fields=post_params,
             encode_multipart=True, headers={}
         )
+
+    @patch('ambition.rest.RESTClientObject.agent')
+    def test_query_params_are_added_to_url(self, rest_agent):
+        """
+        Verify that query params are appended to the url correctly
+        """
+        request_mock = MagicMock(return_value=MagicMock(status=200, data=''))
+        rest_agent.return_value.request = request_mock
+        from ..rest import RESTClientObject
+        client = RESTClientObject()
+        query_params = {'foo': 'bar'}
+        client.request(
+            'POST', 'http://example.com/', query_params=query_params,
+            body=query_params
+        )
+        expected_headers = {'Content-Type': 'application/json'}
+        request_mock.assert_called_with(
+            'POST', 'http://example.com/?foo=bar', body=json.dumps(query_params),
+            headers=expected_headers
+        )
+
+    @patch('ambition.rest.RESTClientObject.agent')
+    def test_api_error_raises_exception(self, rest_agent):
+        """
+        Verify that an api error response will raise an exception
+        """
+        request_mock = MagicMock(return_value=MagicMock(status=500, data=''))
+        rest_agent.return_value.request = request_mock
+        from ..rest import RESTClientObject
+        client = RESTClientObject()
+        query_params = {'foo': 'bar'}
+        request = partial(
+            client.request, 'POST', 'http://example.com/',
+            query_params=query_params, body='')
+        self.assertRaises(ApiException, request)
+
+    @patch('ambition.rest.RESTClientObject.agent')
+    @patch('ambition.rest.sys')
+    def test_python_3_response_is_decoded(self, rest_sys, rest_agent):
+        """
+        Verify that the bytestream in python 3 responses is decoded properly
+        """
+        rest_sys.version_info.major = 3
+        # create bytestring
+        data = '\xe0\xb2\xa0_\xe0\xb2\xa0'
+        request_mock = MagicMock(return_value=MagicMock(status=500, data=data))
+        rest_agent.return_value.request = request_mock
+        from ..rest import RESTClientObject
+        client = RESTClientObject()
+        # change content type
+        headers = { 'Content-Type': 'application/octet-stream' }
+        request = partial(
+            client.request, 'POST', 'http://example.com/', headers=headers)
+        self.assertRaises(ApiException, request)

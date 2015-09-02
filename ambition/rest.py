@@ -130,7 +130,7 @@ class RESTClientObject(object):
     def process_response(self, response):
         # In the python 3, the response.data is bytes.
         # we need to decode it to string.
-        if sys.version_info > (3,):
+        if sys.version_info.major == 3:
             data = response.data.decode('utf8')
         else:
             data = response.data
