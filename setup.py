@@ -32,7 +32,7 @@ setup(
     version=get_version(),
     description='',
     long_description=open('README.rst').read(),
-    url='https://github.com/ambitioninc/ambition-python',
+    url='https://github.com/ambitioninc/ambition',
     author='Ryan Bales',
     author_email='opensource@ambition.com',
     install_requires=REQUIRES,

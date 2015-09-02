@@ -16,7 +16,7 @@ import datetime
 import mimetypes
 
 # python 2 and python 3 compatibility library
-from six import iteritems
+from six import iteritems, text_type
 
 try:
     # for python3
@@ -37,7 +37,6 @@ class ApiClient(object):
         self.configuration = configuration
         self.default_headers = {}
         self.host = configuration.host
-        self.cookie = None
         # Set default User-Agent.
         self.user_agent = 'Python-Swagger'
 
@@ -58,8 +57,6 @@ class ApiClient(object):
         # headers parameters
         header_params = header_params or {}
         header_params.update(self.default_headers)
-        if self.cookie:
-            header_params['Cookie'] = self.cookie
         header_params = self.sanitize_for_serialization(header_params)
 
         # path parameters
@@ -132,7 +129,7 @@ class ApiClient(object):
         """
         if isinstance(obj, type(None)):
             return None
-        elif isinstance(obj, (str, int, float, bool, tuple, unicode)):
+        elif isinstance(obj, (int, float, bool, tuple, text_type, str)):
             return obj
         elif isinstance(obj, list):
             return [self.sanitize_for_serialization(sub_obj) for sub_obj in obj]
@@ -176,7 +173,7 @@ class ApiClient(object):
             try:
                 return eval(obj_class)(obj)
             except UnicodeEncodeError:
-                return unicode(obj)
+                return eval(text_type)(obj)
             except TypeError:
                 return obj
         if obj_class == 'datetime':

@@ -265,3 +265,20 @@ class ApiClientTest(unittest.TestCase):
         # confirm that neither dict was modified
         self.assertEqual({}, headers)
         self.assertEqual({}, query_params)
+
+    def test_user_agent(self):
+        """
+        Verifies that clients are being constructed with user agent
+        """
+        self.assertEqual('Python-Swagger', self.client.user_agent)
+
+    def test_deserialize_model_gracefully_handles_bad_input(self):
+        """
+        Verifies that we won't try to enumerate an object not of list/dict type
+        when trying to cast it to a model type
+        """
+        from ambition.models import PublicApiDataListResponse
+        model = self.client.deserialize_model(PublicApiDataListResponse, None)
+        self.assertIsInstance(model, PublicApiDataListResponse)
+        for attribute in model.attribute_map:
+            self.assertIsNone(getattr(model, attribute))

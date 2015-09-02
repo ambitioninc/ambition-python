@@ -15,7 +15,7 @@ class RestClientObjectTest(unittest.TestCase):
         """
         Verify that the rest client supports the extended set of content types
         """
-        request_mock = MagicMock(return_value=MagicMock(status=200, data=''))
+        request_mock = MagicMock(return_value=MagicMock(status=200, data=b''))
         rest_agent.return_value.request = request_mock
         from ..rest import RESTClient
         test_headers = {
@@ -28,9 +28,9 @@ class RestClientObjectTest(unittest.TestCase):
     @patch('ambition.rest.RESTClientObject.agent')
     def test_get_query_params(self, rest_agent):
         """
-        Verify that the rest client supports the extended set of content types
+        Verify that the rest client passes along query params to transport
         """
-        request_mock = MagicMock(return_value=MagicMock(status=200, data=''))
+        request_mock = MagicMock(return_value=MagicMock(status=200, data=b''))
         rest_agent.return_value.request = request_mock
         from ..rest import RESTClient
         query_params = {'foo': 'bar'}
@@ -42,6 +42,24 @@ class RestClientObjectTest(unittest.TestCase):
             },
         }
         request_mock.assert_called_with('GET', 'fake_url', **request_kwargs)
+
+    @patch('ambition.rest.RESTClientObject.agent')
+    def test_form_params(self, rest_agent):
+        """
+        Verify that the rest client passes along form params to transport
+        """
+        request_mock = MagicMock(return_value=MagicMock(status=200, data=b''))
+        rest_agent.return_value.request = request_mock
+        from ..rest import RESTClient
+        post_params = {'foo': 'bar'}
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        RESTClient.POST('fake_url', post_params=post_params, headers=headers)
+        request_kwargs = {
+            'fields': post_params,
+            'headers': headers,
+            'encode_multipart': False,
+        }
+        request_mock.assert_called_with('POST', 'fake_url', **request_kwargs)
 
     def test_agent_selector(self):
         """
@@ -59,12 +77,48 @@ class RestClientObjectTest(unittest.TestCase):
         """
         Verifies that put correctly wraps the request method
         """
-        from ..rest import RESTClientObject
-        client = RESTClientObject()
+        from ..rest import RESTClient
+        client = RESTClient()
         url = 'http://www.example.com'
         client.PUT(url)
         request_mock.assert_called_with(
             'PUT', url, headers=None, post_params=None, body=None)
+
+    @patch('ambition.rest.RESTClientObject.request')
+    def test_patch(self, request_mock):
+        """
+        Verifies that patch correctly wraps the request method
+        """
+        from ..rest import RESTClientObject
+        client = RESTClientObject()
+        url = 'http://www.example.com'
+        client.PATCH(url)
+        request_mock.assert_called_with(
+            'PATCH', url, headers=None, post_params=None, body=None)
+
+    @patch('ambition.rest.RESTClientObject.request')
+    def test_head(self, request_mock):
+        """
+        Verifies that head correctly wraps the request method
+        """
+        from ..rest import RESTClient
+        client = RESTClient()
+        url = 'http://www.example.com'
+        client.HEAD(url)
+        request_mock.assert_called_with(
+            'HEAD', url, headers=None, query_params=None)
+
+    @patch('ambition.rest.RESTClientObject.request')
+    def test_delete(self, request_mock):
+        """
+        Verifies that delete correctly wraps the request method
+        """
+        from ..rest import RESTClientObject
+        client = RESTClientObject()
+        url = 'http://www.example.com'
+        client.DELETE(url)
+        request_mock.assert_called_with(
+            'DELETE', url, headers=None, query_params=None)
 
     def test_error_response(self):
         """
@@ -74,7 +128,7 @@ class RestClientObjectTest(unittest.TestCase):
         response = {
             'status': 500,
             'reason': 'just because',
-            'data': 'not}{json',
+            'data': b'not}{json',
             'headers': []
         }
         exception = ApiException(MagicMock(**response))
@@ -108,7 +162,7 @@ class RestClientObjectTest(unittest.TestCase):
         Verifies that the API client doesn't override urllib's definition of
         the multipart form boundary
         """
-        request_mock = MagicMock(return_value=MagicMock(status=200, data=''))
+        request_mock = MagicMock(return_value=MagicMock(status=200, data=b''))
         rest_agent.return_value.request = request_mock
         from ..rest import RESTClientObject
         client = RESTClientObject()
@@ -127,7 +181,7 @@ class RestClientObjectTest(unittest.TestCase):
         """
         Verify that query params are appended to the url correctly
         """
-        request_mock = MagicMock(return_value=MagicMock(status=200, data=''))
+        request_mock = MagicMock(return_value=MagicMock(status=200, data=b''))
         rest_agent.return_value.request = request_mock
         from ..rest import RESTClientObject
         client = RESTClientObject()
@@ -147,7 +201,7 @@ class RestClientObjectTest(unittest.TestCase):
         """
         Verify that an api error response will raise an exception
         """
-        request_mock = MagicMock(return_value=MagicMock(status=500, data=''))
+        request_mock = MagicMock(return_value=MagicMock(status=500, data=b''))
         rest_agent.return_value.request = request_mock
         from ..rest import RESTClientObject
         client = RESTClientObject()
@@ -165,7 +219,7 @@ class RestClientObjectTest(unittest.TestCase):
         """
         rest_sys.version_info.major = 3
         # create bytestring
-        data = '\xe0\xb2\xa0_\xe0\xb2\xa0'
+        data = b'\xe0\xb2\xa0_\xe0\xb2\xa0'
         request_mock = MagicMock(return_value=MagicMock(status=500, data=data))
         rest_agent.return_value.request = request_mock
         from ..rest import RESTClientObject

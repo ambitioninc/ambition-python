@@ -173,7 +173,7 @@ class ApiException(Exception):
 
         # In the python 3, the self.body is bytes.
         # we need to decode it to string.
-        if sys.version_info > (3,):
+        if sys.version_info.major == 3:
             data = self.body.decode('utf8')
         else:
             data = self.body
@@ -213,7 +213,7 @@ class RESTClient(object):
         """
         Perform a HEAD request using `RESTClient.request()`.
         """
-        return cls.IMPL.GET(*n, **kw)
+        return cls.IMPL.HEAD(*n, **kw)
 
     @classmethod
     def POST(cls, *n, **kw):

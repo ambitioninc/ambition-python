@@ -4,6 +4,7 @@ omit =
     ambition/apis/*
     ambition/models/*
     ambition/version.py
+    ambition/tests/*
 source = ambition
 [report]
 exclude_lines =

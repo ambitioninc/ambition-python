@@ -11,6 +11,4 @@ install:
 script:
   - flake8 .
   - python setup.py nosetests
-  - python setup.py build_sphinx
-after_success:
-  coveralls
+  - coverage report --fail-under=100

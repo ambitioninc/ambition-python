@@ -19,9 +19,7 @@ class ApiConfiguration(object):
 
     @property
     def api_key(self):
-        if self._api_key and self._api_key_prefix:
-            return self._api_key_prefix + ' ' + self._api_key
-        return self._api_key
+        return self._api_key_prefix + ' ' + self._api_key
 
     def auth_settings(self):
         return {
