@@ -210,22 +210,3 @@ class RestClientObjectTest(unittest.TestCase):
             client.request, 'POST', 'http://example.com/',
             query_params=query_params, body='')
         self.assertRaises(ApiException, request)
-
-    @patch('ambition.rest.RESTClientObject.agent')
-    @patch('ambition.rest.sys')
-    def test_python_3_response_is_decoded(self, rest_sys, rest_agent):
-        """
-        Verify that the bytestream in python 3 responses is decoded properly
-        """
-        rest_sys.version_info.major = 3
-        # create bytestring
-        data = b'\xe0\xb2\xa0_\xe0\xb2\xa0'
-        request_mock = MagicMock(return_value=MagicMock(status=500, data=data))
-        rest_agent.return_value.request = request_mock
-        from ..rest import RESTClientObject
-        client = RESTClientObject()
-        # change content type
-        headers = {'Content-Type': 'application/octet-stream'}
-        request = partial(
-            client.request, 'POST', 'http://example.com/', headers=headers)
-        self.assertRaises(ApiException, request)

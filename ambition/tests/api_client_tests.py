@@ -282,3 +282,11 @@ class ApiClientTest(unittest.TestCase):
         self.assertIsInstance(model, PublicApiDataListResponse)
         for attribute in model.attribute_map:
             self.assertIsNone(getattr(model, attribute))
+
+    def test_deserialize_datetimes(self):
+        """
+        Verifies that datetimes are deserialized
+        """
+        now = datetime.datetime.now()
+        now_deserialized = self.client.deserialize(now.isoformat(), 'datetime')
+        self.assertEqual(now, now_deserialized)

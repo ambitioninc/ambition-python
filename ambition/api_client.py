@@ -169,11 +169,11 @@ class ApiClient(object):
             match = re.match('list\[(.*)\]', obj_class)
             sub_class = match.group(1)
             return [self.deserialize(sub_obj, sub_class) for sub_obj in obj]
-        if obj_class in ['int', 'float', 'dict', 'list', 'str', 'bool']:
+        if obj_class == 'str':
+            return text_type(obj)
+        if obj_class in ['int', 'float', 'dict', 'list', 'bool']:
             try:
                 return eval(obj_class)(obj)
-            except UnicodeEncodeError:
-                return eval(text_type)(obj)
             except TypeError:
                 return obj
         if obj_class == 'datetime':

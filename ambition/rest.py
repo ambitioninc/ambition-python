@@ -10,6 +10,7 @@ import io
 import json
 import ssl
 import certifi
+import six
 
 try:
     import urllib3
@@ -128,12 +129,7 @@ class RESTClientObject(object):
         return self.process_response(r)
 
     def process_response(self, response):
-        # In the python 3, the response.data is bytes.
-        # we need to decode it to string.
-        if sys.version_info.major == 3:
-            data = response.data.decode('utf8')
-        else:
-            data = response.data
+        data = six.text_type(response.data)
         try:
             resp = json.loads(data)
         except ValueError:
@@ -171,12 +167,7 @@ class ApiException(Exception):
         self.body = http_resp.data
         self.headers = http_resp.getheaders()
 
-        # In the python 3, the self.body is bytes.
-        # we need to decode it to string.
-        if sys.version_info.major == 3:
-            data = self.body.decode('utf8')
-        else:
-            data = self.body
+        data = six.text_type(self.body)
 
         try:
             self.body = json.loads(data)
