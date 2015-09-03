@@ -12,3 +12,5 @@ script:
   - flake8 .
   - python setup.py nosetests
   - coverage report --fail-under=100
+after_success:
+  coveralls

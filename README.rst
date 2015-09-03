@@ -1,6 +1,9 @@
 .. image:: https://travis-ci.org/ambitioninc/ambition-python.png
    :target: https://travis-ci.org/ambitioninc/ambition
 
+.. image:: https://coveralls.io/repos/ambitioninc/ambition-python/badge.png?branch=master
+    :target: https://coveralls.io/r/ambitioninc/ambition-python?branch=master
+
 ambition
 ===============
 
