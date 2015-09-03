@@ -1,17 +1,6 @@
 .. image:: https://travis-ci.org/ambitioninc/ambition-python.png
    :target: https://travis-ci.org/ambitioninc/ambition
 
-.. image:: https://coveralls.io/repos/ambitioninc/ambition-python/badge.png?branch=develop
-    :target: https://coveralls.io/r/ambitioninc/ambition?branch=develop
-
-.. image:: https://pypip.in/v/ambition/badge.png
-    :target: https://pypi.python.org/pypi/ambition/
-    :alt: Latest PyPI version
-
-.. image:: https://pypip.in/d/ambition/badge.png
-    :target: https://pypi.python.org/pypi/ambition/
-    :alt: Number of PyPI downloads
-
 ambition
 ===============
 
