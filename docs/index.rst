@@ -6,6 +6,9 @@ Import these bindings in your project to integrate Ambition's public API.
 Examples
 --------
 
+Listing Usernames for All Accounts
+----------------------------------
+
 .. code-block:: python
 
     from os import environ
@@ -20,7 +23,8 @@ Examples
     for account in api.public_api_account_list():
         print account.username
 
-Listing usernames for all accounts in your organization.
+Listing All Data Types
+----------------------
 
 .. code-block:: python
 
@@ -36,7 +40,8 @@ Listing usernames for all accounts in your organization.
     for data_type in api.public_api_data_type_list_list():
         print data_type.name
 
-Listing data type identifier/name for all data types supported by your organization.
+Uploading File Contents to the API
+----------------------------------
 
 .. code-block:: python
 
