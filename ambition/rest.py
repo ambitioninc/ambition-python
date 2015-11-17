@@ -5,6 +5,7 @@ Credit: this file (rest.py) is modified based on rest.py in Dropbox Python SDK:
 https://www.dropbox.com/developers/core/sdks/python
 """
 
+import sys
 import io
 import json
 import ssl
