@@ -123,6 +123,7 @@ class AccountApi(AbstractBaseApi):
         last_name,
         time_zone,
         email,
+        password,
         content_type=None,
         **kwargs
     ):
@@ -136,7 +137,7 @@ class AccountApi(AbstractBaseApi):
         :param str time_zone:(required)
         :param bool is_manager:
         :param str email:(required)
-        :param str password:
+        :param str password:(required)
         :return: AccountApiSerializer
         """
         all_params = [

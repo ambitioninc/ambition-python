@@ -277,9 +277,9 @@ class ApiClientTest(unittest.TestCase):
         Verifies that we won't try to enumerate an object not of list/dict type
         when trying to cast it to a model type
         """
-        from ambition.models import PublicApiDataListResponse
-        model = self.client.deserialize_model(PublicApiDataListResponse, None)
-        self.assertIsInstance(model, PublicApiDataListResponse)
+        from ambition.models import PublicApiDataTypeRetrieveResponse
+        model = self.client.deserialize_model(PublicApiDataTypeRetrieveResponse, None)
+        self.assertIsInstance(model, PublicApiDataTypeRetrieveResponse)
         for attribute in model.attribute_map:
             self.assertIsNone(getattr(model, attribute))
 
